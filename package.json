@@ -1,21 +1,17 @@
 {
-  "name": "electron-quick-start",
+  "name": "workbench-electron",
   "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "description": "A Prototype Electron application",
   "main": "main.js",
   "scripts": {
     "start": "electron ."
   },
-  "repository": "https://github.com/electron/electron-quick-start",
+  "repository": "https://github.com/ralphwillgoss/workbench-electron",
   "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
+    "Electron"
   ],
-  "author": "GitHub",
-  "license": "CC0-1.0",
+  "author": "Ralph Willgoss",
+  "license": "MIT",
   "devDependencies": {
     "electron": "^1.4.1"
   }
