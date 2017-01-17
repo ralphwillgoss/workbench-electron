@@ -1,5 +1,6 @@
 {
   "name": "workbench-electron",
+  "productName": "workbench",
   "version": "1.0.0",
   "description": "A Prototype Electron application",
   "main": "main.js",
@@ -18,5 +19,6 @@
     "electron": "^1.4.1"
   },
   "build": {
+    "appId": "com.digitalsuperglue.workbench"
   }
 }
