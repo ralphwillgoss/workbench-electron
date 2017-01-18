@@ -19,6 +19,10 @@
     "electron": "^1.4.1"
   },
   "build": {
-    "appId": "com.digitalsuperglue.workbench"
+    "appId": "com.digitalsuperglue.workbench",
+    "copyright": "Copyright (C) 2017 Digital Super Glue, All rights reserved"
+  },
+  "dependencies": {
+    "electron-auto-updater": "^1.0.0"
   }
 }
