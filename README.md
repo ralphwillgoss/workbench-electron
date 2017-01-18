@@ -23,8 +23,8 @@ electron-packager . workbench --platform win32 arch--x64 --overwrite --win32meta
 npm install electron-builder -g
 
 # Create a test distribution
-npm run dist
+npm run pack
 
 # Create full distribution (can take some time while creating installer) 
-npm run pack
+npm run dist
 ```
