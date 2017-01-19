@@ -1,18 +1,11 @@
 {
   "name": "workbench-electron",
-  "productName": "workbench",
-  "version": "1.0.0",
   "description": "A Prototype Electron application",
-  "main": "main.js",
   "scripts": {
-    "start": "electron .",
-    "pack": "build --dir",
+    "start": "electron ./app",
+    "pack": "build ./app",
     "dist": "build"
   },
-  "repository": "https://github.com/ralphwillgoss/workbench-electron",
-  "keywords": [
-    "Electron"
-  ],
   "author": "Ralph Willgoss",
   "license": "MIT",
   "devDependencies": {
@@ -22,10 +15,8 @@
     "appId": "com.digitalsuperglue.workbench",
     "copyright": "Copyright (C) 2017 Digital Super Glue, All rights reserved",
     "win": {
-      "publish": [{"provider": "generic", "url":"http://localhost/workbench/"}]
+      "publish": [{"provider": "generic", "url":"http://localhost/workbench/"}],
+      "msi": true
     }
-  },
-  "dependencies": {
-    "electron-auto-updater": "^1.0.0"
   }
 }
