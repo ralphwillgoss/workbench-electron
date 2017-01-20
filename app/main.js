@@ -1,29 +1,35 @@
-const electron = require('electron')
-// Module to control application life.
+  const electron = require('electron')
 const app = electron.app
-// Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow
 
 const path = require('path')
 const url = require('url')
 
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
+// Keep reference of main window because of GC
 let mainWindow
 
 function createWindow () {
-  // Create the browser window.
   mainWindow = new BrowserWindow({width: 800, height: 600})
 
-  // and load the index.html of the app.
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'index.html'),
     protocol: 'file:',
     slashes: true
   }))
 
-  // Open the DevTools.
   mainWindow.webContents.openDevTools()
+
+  let cmd =  path.resolve("scripts", "console.test.ps1")
+  console.log("execution path: " + process.cwd())
+  console.log("executing: " + cmd)
+
+  var exec = require('child_process').exec;
+  exec('powershell.exe -File '+ cmd, function(err, stdout, stderr) {  
+    console.log("stdout: " + stdout)
+    console.log("stderr: " + stderr)
+    console.log("err: " + err)
+  })
+  .stdin.end()
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
@@ -55,6 +61,3 @@ app.on('activate', function () {
     createWindow()
   }
 })
-
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.

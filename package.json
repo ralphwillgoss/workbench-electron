@@ -2,6 +2,7 @@
   "name": "workbench-electron",
   "description": "A Prototype Electron application",
   "scripts": {
+    "postinstall": "install-app-deps",
     "start": "electron ./app",
     "pack": "build ./app",
     "dist": "build"
