@@ -25,9 +25,9 @@ function createWindow () {
 
   var exec = require('child_process').exec;
   exec('powershell.exe -File '+ cmd, function(err, stdout, stderr) {  
-    console.log("stdout: " + stdout)
-    console.log("stderr: " + stderr)
-    console.log("err: " + err)
+    console.log(`stdout: ${stdout}`)
+    console.log(`stderr: ${stderr}`)
+    console.log(`err: ${err}`)
   })
   .stdin.end()
 
