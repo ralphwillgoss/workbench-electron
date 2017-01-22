@@ -1,6 +1,9 @@
-  const electron = require('electron')
+'use strict'
+
+const electron = require('electron')
 const app = electron.app
 const BrowserWindow = electron.BrowserWindow
+const ipcMain = electron.ipcMain
 
 const path = require('path')
 const url = require('url')
@@ -23,11 +26,13 @@ function createWindow () {
   console.log("execution path: " + process.cwd())
   console.log("executing: " + cmd)
 
+  mainWindow.webContents.on('did-finish-load', () => {
+    mainWindow.webContents.send('write', 'msg from main.js')
+  })
+
   var exec = require('child_process').exec;
   exec('powershell.exe -File '+ cmd, function(err, stdout, stderr) {  
-    console.log(`stdout: ${stdout}`)
-    console.log(`stderr: ${stderr}`)
-    console.log(`err: ${err}`)
+    mainWindow.webContents.send('write', stdout)
   })
   .stdin.end()
 
@@ -60,4 +65,8 @@ app.on('activate', function () {
   if (mainWindow === null) {
     createWindow()
   }
+})
+
+ipcMain.on('sync', (event, arg) => {
+    console.log(arg)
 })
