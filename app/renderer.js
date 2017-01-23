@@ -3,12 +3,12 @@
 // All of the Node.js APIs are available in this process.
 
 var ipc = require('electron').ipcRenderer
-ipc.on('write', (event, message) => {
+ipc.on('response', (event, message) => {
     console.log(message)
 })
 
 var btn = document.getElementById('btnExecute')
 
 btn.addEventListener('click', function () {
-    ipc.send('sync','msg from renderer.js')
+    ipc.send('request','powershell')
 })

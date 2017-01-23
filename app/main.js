@@ -21,22 +21,8 @@ function createWindow () {
   }))
 
   mainWindow.webContents.openDevTools()
+  mainWindow.webContents.on('did-finish-load', () => { })
 
-  let cmd =  path.resolve("scripts", "console.test.ps1")
-  console.log("execution path: " + process.cwd())
-  console.log("executing: " + cmd)
-
-  mainWindow.webContents.on('did-finish-load', () => {
-    mainWindow.webContents.send('write', 'msg from main.js')
-  })
-
-  var exec = require('child_process').exec;
-  exec('powershell.exe -File '+ cmd, function(err, stdout, stderr) {  
-    mainWindow.webContents.send('write', stdout)
-  })
-  .stdin.end()
-
-  // Emitted when the window is closed.
   mainWindow.on('closed', function () {
     // Dereference the window object, usually you would store windows
     // in an array if your app supports multi windows, this is the time
@@ -50,23 +36,26 @@ function createWindow () {
 // Some APIs can only be used after this event occurs.
 app.on('ready', createWindow)
 
-// Quit when all windows are closed.
 app.on('window-all-closed', function () {
-  // On OS X it is common for applications and their menu bar
-  // to stay active until the user quits explicitly with Cmd + Q
   if (process.platform !== 'darwin') {
     app.quit()
   }
 })
 
 app.on('activate', function () {
-  // On OS X it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
   if (mainWindow === null) {
     createWindow()
   }
 })
 
-ipcMain.on('sync', (event, arg) => {
-    console.log(arg)
+ipcMain.on('request', (event, arg) => {
+  let cmd =  path.resolve("scripts", "console.test.ps1")
+  console.log("execution path: " + process.cwd())
+  console.log("executing: " + cmd)
+
+  var exec = require('child_process').exec
+  exec('powershell.exe -File '+ cmd, function(err, stdout, stderr) {
+    mainWindow.webContents.send('response', stdout)
+  })
+  .stdin.end()
 })
