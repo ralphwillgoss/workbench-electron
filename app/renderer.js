@@ -2,12 +2,16 @@
 // be executed in the renderer process for that window.
 // All of the Node.js APIs are available in this process.
 
-var ipc = require('electron').ipcRenderer
-ipc.on('response', (event, message) => {
-    console.log(message)
+let ipc = require('electron').ipcRenderer
+ipc.on('response-stdout', (event, message) => {
+    document.getElementById('console').innerHTML = message + document.getElementById('console').innerHTML
 })
 
-var btn = document.getElementById('btnExecute')
+ipc.on('response-stderr', (event, message) => {
+    document.getElementById('error').innerHTML = message + document.getElementById('error').innerHTML
+})
+
+let btn = document.getElementById('btnExecute')
 
 btn.addEventListener('click', function () {
     ipc.send('request','powershell')

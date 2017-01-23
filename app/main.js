@@ -55,7 +55,8 @@ ipcMain.on('request', (event, arg) => {
 
   var exec = require('child_process').exec
   exec('powershell.exe -File '+ cmd, function(err, stdout, stderr) {
-    mainWindow.webContents.send('response', stdout)
+    mainWindow.webContents.send('response-stdout', stdout)
+    mainWindow.webContents.send('response-stderr', stderr)
   })
   .stdin.end()
 })
