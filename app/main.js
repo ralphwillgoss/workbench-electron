@@ -12,7 +12,7 @@ const url = require('url')
 let mainWindow
 
 function createWindow () {
-  mainWindow = new BrowserWindow({width: 800, height: 600})
+  mainWindow = new BrowserWindow({width: 1024, height: 800})
 
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'index.html'),
@@ -54,9 +54,11 @@ ipcMain.on('request', (event, arg) => {
   console.log("executing: " + cmd)
 
   var exec = require('child_process').exec
-  exec('powershell.exe -File '+ cmd, function(err, stdout, stderr) {
-    mainWindow.webContents.send('response-stdout', stdout)
-    mainWindow.webContents.send('response-stderr', stderr)
+  exec('powershell.exe -File '+ cmd, function(err, stdout, stderr) {})
+  .stdout.on('data', (chunk) => {
+     mainWindow.webContents.send('response-stdout', chunk)
   })
-  .stdin.end()
+  //.stderr.on('error', (chunk) => {
+  //   mainWindow.webContents.send('response-stderr', chunk)
+  //})
 })

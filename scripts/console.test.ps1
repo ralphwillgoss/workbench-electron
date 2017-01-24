@@ -20,8 +20,11 @@ function Write-StdErr {
 }
 
 for ($i=1; $i -le 100; $i++) {
-    Write-Output "standard output - line $i"
+    if ($i -eq 50) {
+        Write-StdErr "standard error"
+    } else {
+        Write-Output "standard output - line $i"
+    }
+    
     Start-Sleep -m 50
 }
-
-Write-StdErr "standard error"
