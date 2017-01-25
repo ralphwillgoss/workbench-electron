@@ -20,7 +20,6 @@ function createWindow () {
     slashes: true
   }))
 
-  mainWindow.webContents.openDevTools()
   mainWindow.webContents.on('did-finish-load', () => { })
 
   mainWindow.on('closed', function () {
@@ -29,6 +28,8 @@ function createWindow () {
     // when you should delete the corresponding element.
     mainWindow = null
   })
+
+  require('./main-menu')
 }
 
 // This method will be called when Electron has finished
@@ -54,7 +55,7 @@ ipcMain.on('request', (event, arg) => {
   console.log("executing: " + cmd)
 
   var exec = require('child_process').exec
-  exec('powershell.exe -File '+ cmd, function(err, stdout, stderr) {})
+  exec('powershell.exe -File '+ cmd)
   .stdout.on('data', (chunk) => {
      mainWindow.webContents.send('response-stdout', chunk)
   })
@@ -62,3 +63,4 @@ ipcMain.on('request', (event, arg) => {
   //   mainWindow.webContents.send('response-stderr', chunk)
   //})
 })
+
