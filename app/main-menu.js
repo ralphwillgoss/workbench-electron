@@ -81,17 +81,7 @@ const template = [
     submenu: [
       {
         label: 'About',
-        click () {
-            dialog.showMessageBox({
-                title: "About Workbench",
-                message: "Workbench is using the following versions:" + os.EOL +
-                    "workbench: " + app.getVersion() + os.EOL +
-                    "node: " + process.versions.node + os.EOL +
-                    "chrome: "+ process.versions.chrome + os.EOL +
-                    "electron: " + process.versions.electron,
-                buttons: ["OK"]
-            })
-        }
+        click () { showAboutBox() }
       }
     ]
   }
@@ -172,6 +162,18 @@ if (process.platform === 'darwin') {
       role: 'front'
     }
   ]
+}
+
+function showAboutBox() {
+    dialog.showMessageBox({
+        title: "About Workbench",
+        message: "Workbench is using the following versions:" + os.EOL +
+            "workbench: " + app.getVersion() + os.EOL +
+            "node: " + process.versions.node + os.EOL +
+            "chrome: "+ process.versions.chrome + os.EOL +
+            "electron: " + process.versions.electron,
+        buttons: ["OK"]
+    })
 }
 
 const menu = Menu.buildFromTemplate(template)
