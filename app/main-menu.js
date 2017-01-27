@@ -1,7 +1,7 @@
 'use strict'
 
-const { app, BrowserWindow, dialog, Menu } = require('electron')
-const os  = require('os')
+const { app, dialog, Menu } = require('electron')
+const os = require('os')
 
 const template = [
   {
@@ -164,16 +164,16 @@ if (process.platform === 'darwin') {
   ]
 }
 
-function showAboutBox() {
-    dialog.showMessageBox({
-        title: "About Workbench",
-        message: `Workbench is using the following versions:` + os.EOL +
+function showAboutBox () {
+  dialog.showMessageBox({
+    title: 'About Workbench',
+    message: `Workbench is using the following versions:` + os.EOL +
                  `workbench: ${app.getVersion()}` + os.EOL +
                  `     node: ${process.versions.node}` + os.EOL +
                  `   chrome: ${process.versions.chrome}` + os.EOL +
                  ` electron: ${process.versions.electron}` + os.EOL,
-        buttons: ["OK"]
-    })
+    buttons: ['OK']
+  })
 }
 
 const menu = Menu.buildFromTemplate(template)

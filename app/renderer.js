@@ -4,15 +4,15 @@
 
 let ipc = require('electron').ipcRenderer
 ipc.on('response-stdout', (event, message) => {
-    document.getElementById('console').innerHTML = message + document.getElementById('console').innerHTML
+  document.getElementById('console').innerHTML = message + document.getElementById('console').innerHTML
 })
 
 ipc.on('response-stderr', (event, message) => {
-    document.getElementById('error').innerHTML = message + document.getElementById('error').innerHTML
+  document.getElementById('error').innerHTML = message + document.getElementById('error').innerHTML
 })
 
 let btn = document.getElementById('btnExecute')
 
 btn.addEventListener('click', function () {
-    ipc.send('request','powershell')
+  ipc.send('request', 'powershell')
 })

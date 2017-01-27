@@ -8,15 +8,22 @@
     "dist": "build"
   },
   "author": "Ralph Willgoss",
+  "repository": "https://github.com/ralphwillgoss/workbench-electron",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^1.4.1"
+    "electron": "^1.4.1",
+    "standard": "^8.6.0"
   },
   "build": {
     "appId": "com.digitalsuperglue.workbench",
     "copyright": "Copyright (C) 2017 Digital Super Glue, All rights reserved",
     "win": {
-      "publish": [{"provider": "generic", "url":"http://localhost/workbench/"}],
+      "publish": [
+        {
+          "provider": "generic",
+          "url": "http://localhost/workbench/"
+        }
+      ],
       "msi": true
     }
   }

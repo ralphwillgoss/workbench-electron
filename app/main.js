@@ -48,17 +48,17 @@ app.on('activate', function () {
 })
 
 ipcMain.on('request', (event, arg) => {
-  let cmd =  path.resolve("scripts", "console.test.ps1")
-  console.log("execution path: " + process.cwd())
-  console.log("executing: " + cmd)
+  let cmd = path.resolve('scripts', 'console.test.ps1')
+  console.log('execution path: ' + process.cwd())
+  console.log('executing: ' + cmd)
 
   let exec = require('child_process').exec
-  exec('powershell.exe -File '+ cmd)
+  exec('powershell.exe -File ' + cmd)
   .stdout.on('data', (chunk) => {
-     mainWindow.webContents.send('response-stdout', chunk)
+    mainWindow.webContents.send('response-stdout', chunk)
   })
-  //.stderr.on('error', (chunk) => {
+  // .stderr.on('error', (chunk) => {
   //   mainWindow.webContents.send('response-stderr', chunk)
-  //})
+  // })
 })
 

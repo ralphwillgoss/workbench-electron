@@ -4,7 +4,6 @@
   "version": "1.0.0",
   "description": "A Prototype Electron application",
   "main": "main.js",
-  "repository": "https://github.com/ralphwillgoss/workbench-electron",
   "author": "Ralph Willgoss",
   "license": "MIT",
   "dependencies": {
