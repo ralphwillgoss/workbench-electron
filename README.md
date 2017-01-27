@@ -30,3 +30,12 @@ npm run pack
 # Create full distribution (can take some time while creating installer) 
 npm run dist
 ```
+
+standard
+```
+install
+npm install standard -g --save-dev
+
+run
+standard
+```
