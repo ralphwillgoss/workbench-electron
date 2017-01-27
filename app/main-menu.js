@@ -167,11 +167,11 @@ if (process.platform === 'darwin') {
 function showAboutBox() {
     dialog.showMessageBox({
         title: "About Workbench",
-        message: "Workbench is using the following versions:" + os.EOL +
-            "workbench: " + app.getVersion() + os.EOL +
-            "node: " + process.versions.node + os.EOL +
-            "chrome: "+ process.versions.chrome + os.EOL +
-            "electron: " + process.versions.electron,
+        message: `Workbench is using the following versions:` + os.EOL +
+                 `workbench: ${app.getVersion()}` + os.EOL +
+                 `     node: ${process.versions.node}` + os.EOL +
+                 `   chrome: ${process.versions.chrome}` + os.EOL +
+                 ` electron: ${process.versions.electron}` + os.EOL,
         buttons: ["OK"]
     })
 }

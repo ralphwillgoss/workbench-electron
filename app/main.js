@@ -1,10 +1,6 @@
 'use strict'
 
-const electron = require('electron')
-const app = electron.app
-const BrowserWindow = electron.BrowserWindow
-const ipcMain = electron.ipcMain
-
+const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
 const url = require('url')
 
@@ -23,7 +19,7 @@ function createWindow () {
   mainWindow.webContents.on('did-finish-load', () => { })
 
   mainWindow.once('ready-to-show', () => { mainWindow.show() })
-  
+
   mainWindow.on('closed', function () {
     // Dereference the window object, usually you would store windows
     // in an array if your app supports multi windows, this is the time
@@ -56,7 +52,7 @@ ipcMain.on('request', (event, arg) => {
   console.log("execution path: " + process.cwd())
   console.log("executing: " + cmd)
 
-  var exec = require('child_process').exec
+  let exec = require('child_process').exec
   exec('powershell.exe -File '+ cmd)
   .stdout.on('data', (chunk) => {
      mainWindow.webContents.send('response-stdout', chunk)
