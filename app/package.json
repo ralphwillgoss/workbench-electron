@@ -7,7 +7,7 @@
   "author": "Ralph Willgoss",
   "license": "MIT",
   "dependencies": {
-    "electron-auto-updater": "^1.0.0",
-    "electron-logger": "0.0.3"
+    "electron-log": "^1.3.0",
+    "electron-updater": "^1.3.1"
   }
 }

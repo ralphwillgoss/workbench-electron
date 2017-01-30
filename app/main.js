@@ -4,6 +4,10 @@ const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
 const url = require('url')
 
+const {autoUpdater} = require("electron-updater")
+autoUpdater.logger = require("electron-log")
+autoUpdater.logger.transports.file.level = "debug"
+
 // Keep reference of main window because of GC
 let mainWindow
 
@@ -17,6 +21,7 @@ function createWindow () {
   }))
 
   mainWindow.webContents.on('did-finish-load', () => { })
+  mainWindow.webContents.openDevTools();
 
   mainWindow.once('ready-to-show', () => { mainWindow.show() })
 
@@ -26,6 +31,9 @@ function createWindow () {
     // when you should delete the corresponding element.
     mainWindow = null
   })
+  
+  autoUpdater.setFeedURL("http://localhost/workbench/")
+  autoUpdater.checkForUpdates()
 
   require('./main-menu')
 }
