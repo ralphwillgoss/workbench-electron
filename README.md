@@ -31,11 +31,19 @@ npm run pack
 npm run dist
 ```
 
-standard
+### standard
 ```
-install
+# install
 npm install standard -g --save-dev
 
-run
+# run
 standard
 ```
+
+### http-server
+```
+# used for serving auto update version infor
+npm install http-server -g
+
+# run for development
+http-server .\dist\
