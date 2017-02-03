@@ -32,7 +32,7 @@ function createWindow () {
     mainWindow = null
   })
   
-  autoUpdater.setFeedURL("http://localhost/workbench/")
+  autoUpdater.setFeedURL("http://127.0.0.1:8080/")
   autoUpdater.on('checking-for-update', () => console.log("checking for update"))
   autoUpdater.on('update-available', () => console.log("update available"))
   autoUpdater.on('update-not-available', () => console.log("update not available"))
