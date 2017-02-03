@@ -42,7 +42,7 @@ standard
 
 ### http-server
 ```
-# used for serving auto update version infor
+# used for serving auto update version info
 npm install http-server -g
 
 # run for development
