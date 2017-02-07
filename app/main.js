@@ -32,16 +32,25 @@ function createWindow () {
     mainWindow = null
   })
   
+  autoUpdater.autoDownload = false;
   autoUpdater.setFeedURL("http://127.0.0.1:8080/")
-  autoUpdater.on('checking-for-update', () => console.log("checking for update"))
-  autoUpdater.on('update-available', () => console.log("update available"))
-  autoUpdater.on('update-not-available', () => console.log("update not available"))
+  autoUpdater.on('checking-for-update', () => {
+    console.log("checking for update")
+    mainWindow.webContents.send('response-autoUpdate', 'checking...')
+  })
+  autoUpdater.on('update-available', () => {
+    console.log("update available")
+    mainWindow.webContents.send('response-autoUpdate', 'available')
+  })
+  autoUpdater.on('update-not-available', () => {
+    console.log("update not available")
+    mainWindow.webContents.send('response-autoUpdate', 'not available')
+  })
   autoUpdater.on('update-downloaded', () => {
     console.log("update downloaded")
-    autoUpdater.quitAndInstall()
+    mainWindow.webContents.send('response-autoUpdate', 'ready for install')
   })
-  autoUpdater.checkForUpdates();
-
+ 
   require('./main-menu')
 }
 
@@ -63,17 +72,24 @@ app.on('activate', function () {
 })
 
 ipcMain.on('request', (event, arg) => {
-  let cmd = path.resolve('scripts', 'console.test.ps1')
-  console.log('execution path: ' + process.cwd())
-  console.log('executing: ' + cmd)
+  if (arg === 'update')
+  {
+    autoUpdater.checkForUpdates()
+  } 
+  else
+  {
+    let cmd = path.resolve('scripts', 'console.test.ps1')
+    console.log('execution path: ' + process.cwd())
+    console.log('executing: ' + cmd)
 
-  let exec = require('child_process').exec
-  exec('powershell.exe -File ' + cmd)
-  .stdout.on('data', (chunk) => {
-    mainWindow.webContents.send('response-stdout', chunk)
-  })
-  // .stderr.on('error', (chunk) => {
-  //   mainWindow.webContents.send('response-stderr', chunk)
-  // })
+    let exec = require('child_process').exec
+    exec('powershell.exe -File ' + cmd)
+    .stdout.on('data', (chunk) => {
+      mainWindow.webContents.send('response-stdout', chunk)
+    })
+    // .stderr.on('error', (chunk) => {
+    //   mainWindow.webContents.send('response-stderr', chunk)
+    // })
+  }
 })
 

@@ -11,8 +11,17 @@ ipc.on('response-stderr', (event, message) => {
   document.getElementById('error').innerHTML = message + document.getElementById('error').innerHTML
 })
 
-let btn = document.getElementById('btnExecute')
+ipc.on('response-autoUpdate', (event, message) => {
+  document.getElementById('autoUpdate').innerHTML = "update: "+ message
+})
 
-btn.addEventListener('click', function () {
+let btnExecute = document.getElementById('btnExecute')
+let btnUpdate = document.getElementById('btnUpdate')
+
+btnExecute.addEventListener('click', function () {
   ipc.send('request', 'powershell')
+})
+
+btnUpdate.addEventListener('click', function () {
+  ipc.send('request', 'update')
 })

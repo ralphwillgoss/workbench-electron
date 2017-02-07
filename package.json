@@ -4,6 +4,7 @@
   "scripts": {
     "postinstall": "install-app-deps",
     "start": "electron ./app",
+    "server": "http-server ./dist/",
     "pack": "build ./app",
     "dist": "build"
   },
