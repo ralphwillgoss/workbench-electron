@@ -1,12 +1,7 @@
-'use strict'
-
 const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
 const url = require('url')
-
-const {autoUpdater} = require("electron-updater")
-autoUpdater.logger = require("electron-log")
-autoUpdater.logger.transports.file.level = "debug"
+const { autoUpdater } = require("electron-updater")
 
 // Keep reference of main window because of GC
 let mainWindow
@@ -32,6 +27,8 @@ function createWindow () {
     mainWindow = null
   })
   
+  autoUpdater.logger = require("electron-log")
+  autoUpdater.logger.transports.file.level = "debug"
   autoUpdater.autoDownload = false;
   autoUpdater.setFeedURL("http://127.0.0.1:8080/")
   autoUpdater.on('checking-for-update', () => {

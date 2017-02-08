@@ -1,5 +1,3 @@
-'use strict'
-
 const { app, dialog, Menu } = require('electron')
 const os = require('os')
 

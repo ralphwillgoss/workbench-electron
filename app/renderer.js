@@ -3,6 +3,8 @@
 // All of the Node.js APIs are available in this process.
 
 let ipc = require('electron').ipcRenderer
+const { dialog } = require('electron').remote
+
 ipc.on('response-stdout', (event, message) => {
   document.getElementById('console').innerHTML = message + document.getElementById('console').innerHTML
 })
@@ -15,6 +17,7 @@ ipc.on('response-autoUpdate', (event, message) => {
   document.getElementById('autoUpdate').innerHTML = "update: "+ message
 })
 
+let btnSelectFile = document.getElementById('btnSelectFile')
 let btnExecute = document.getElementById('btnExecute')
 let btnUpdate = document.getElementById('btnUpdate')
 
@@ -24,4 +27,8 @@ btnExecute.addEventListener('click', function () {
 
 btnUpdate.addEventListener('click', function () {
   ipc.send('request', 'update')
+})
+
+btnSelectFile.addEventListener('click', function () {
+  console.log(dialog.showOpenDialog({properties: ['openFile', 'openDirectory']}))
 })
