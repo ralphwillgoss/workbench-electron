@@ -27,5 +27,8 @@
       ],
       "msi": true
     }
+  },
+  "dependencies": {
+    "fs-jetpack": "^0.12.0"
   }
 }

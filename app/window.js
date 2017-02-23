@@ -1,14 +1,12 @@
 //
 // Adapted from https://github.com/szwacz/electron-boilerplate/blob/master/src/helpers/window.js
 //
-import { app, BrowserWindow, screen } from 'electron';
+const { app, BrowserWindow, screen } = require('electron')
+const jetpack = require('fs-jetpack')
 
-export default function (name, options) {
+exports.createWindow = function (name, options) {
 
-    let read = () => {} // todo
-    let write =() => {} // todo
-
-    var userDataDir = app.getPath('userData');
+    var userDataDir = jetpack.cwd(app.getPath('userData'));
     var stateStoreFile = 'window-state-' + name +'.json';
     var defaultSize = {
         width: options.width,
@@ -20,9 +18,10 @@ export default function (name, options) {
     var restore = function () {
         var restoredState = {};
         try {
-            restoredState = read(stateStoreFile, 'json');
+            restoredState = userDataDir.read(stateStoreFile, 'json');
         } catch (err) {
-            // use defaults
+            // For some reason json can't be read (might be corrupted).
+            // No worries, we have defaults.
         }
         return Object.assign({}, defaultSize, restoredState);
     };
@@ -58,6 +57,8 @@ export default function (name, options) {
             return windowWithinBounds(windowState, display.bounds);
         });
         if (!visible) {
+            // Window is partially or fully not visible now.
+            // Reset it to safe defaults.
             return resetToDefaults(windowState);
         }
         return windowState;
@@ -65,9 +66,9 @@ export default function (name, options) {
 
     var saveState = function () {
         if (!win.isMinimized() && !win.isMaximized()) {
-            Object.assign(state, getCurrentPosition());
+            //Object.assign(state, getCurrentPosition());
         }
-        write(stateStoreFile, state);
+        userDataDir.write(stateStoreFile, state, { atomic: true });
     };
 
     state = ensureVisibleOnSomeDisplay(restore());

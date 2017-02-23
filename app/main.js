@@ -2,12 +2,13 @@ const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
 const url = require('url')
 const { autoUpdater } = require("electron-updater")
+const createPrevWindow = require('./window')
 
 // Keep reference of main window because of GC
 let mainWindow
 
 function createWindow () {
-  mainWindow = new BrowserWindow({width: 1024, height: 800, show: false})
+  mainWindow = createPrevWindow('main', { width: 1024, height: 800, show: false });
 
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'index.html'),
@@ -54,7 +55,7 @@ function createWindow () {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow)
+//app.on('ready', createWindow)
 
 app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') {
